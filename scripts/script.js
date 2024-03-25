@@ -31,7 +31,7 @@ function setDocumentTitle(songPath) {
 async function getSongs(folder) {
   // Fetch songs from the server
   currentFolder = folder;
-  let files = await fetch(`http://127.0.0.1:5500/songs/${folder}/`);
+  let files = await fetch(`https://astonishing-salmiakki-81fcf1.netlify.app/songs/${folder}/`);
   let response = await files.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -83,7 +83,7 @@ async function getSongs(folder) {
 // Function to display albums
 async function displayAlbums() {
   // Fetch album information from the server
-  let folders = await fetch(`http://127.0.0.1:5500/songs/`);
+  let folders = await fetch(`https://astonishing-salmiakki-81fcf1.netlify.app/songs`);
   let response = await folders.text();
 
   let div = document.createElement("div");
@@ -104,7 +104,7 @@ async function displayAlbums() {
 
       // Get metadata of the folder
       let folders = await fetch(
-        `http://127.0.0.1:5500/songs/${folder}/info.json`
+        `https://astonishing-salmiakki-81fcf1.netlify.app/${folder}/info.json`
       );
       let response = await folders.json();
 
