@@ -7,8 +7,6 @@ let currentFolder;
 
 //
 let folderUrl =
-  "http://192.168.0.103:5500" ||
-  "http://127.0.0.1:5500" ||
   "https://astonishing-salmiakki-81fcf1.netlify.app";
 
 // Function to format time from seconds to MM:SS format
