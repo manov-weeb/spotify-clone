@@ -5,6 +5,12 @@ let currentAudio = new Audio();
 // Variable to store the current folder
 let currentFolder;
 
+//
+let folderUrl =
+  "http://192.168.0.103:5500" ||
+  "http://127.0.0.1:5500" ||
+  "https://astonishing-salmiakki-81fcf1.netlify.app";
+
 // Function to format time from seconds to MM:SS format
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
@@ -23,15 +29,15 @@ function displayPlaybar() {
 function setDocumentTitle(songPath) {
   let [songName, artist] = songPath.replaceAll("%20", " ").split("-");
   artist = artist.replaceAll(".m4a" || ".mp3", " ");
-  
-  document.title = `${songName} • ${artist}`
+
+  document.title = `${songName} • ${artist}`;
 }
 
 // Function to fetch songs from a specified folder
 async function getSongs(folder) {
   // Fetch songs from the server
   currentFolder = folder;
-  let files = await fetch(`https://astonishing-salmiakki-81fcf1.netlify.app/songs/${folder}/`);
+  let files = await fetch(`${folderUrl}/songs/${folder}/`);
   let response = await files.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -83,7 +89,7 @@ async function getSongs(folder) {
 // Function to display albums
 async function displayAlbums() {
   // Fetch album information from the server
-  let folders = await fetch(`https://astonishing-salmiakki-81fcf1.netlify.app/songs`);
+  let folders = await fetch(`${folderUrl}/songs/`);
   let response = await folders.text();
 
   let div = document.createElement("div");
@@ -103,9 +109,7 @@ async function displayAlbums() {
       let folder = e.href.split("/").slice(-1)[0];
 
       // Get metadata of the folder
-      let folders = await fetch(
-        `https://astonishing-salmiakki-81fcf1.netlify.app/${folder}/info.json`
-      );
+      let folders = await fetch(`${folderUrl}/songs/${folder}/info.json`);
       let response = await folders.json();
 
       albums.innerHTML += `
@@ -152,9 +156,15 @@ const playMusic = (music, paused = false) => {
   }
 
   // Display song details
-  document
-    .querySelector(".song-cover-div img")
-    .setAttribute("src", currentAudio.src.split(".m4a")[0] + ".jpg");
+  if (currentAudio.src) {
+    document
+      .querySelector(".song-cover-div img")
+      .setAttribute("src", currentAudio.src.split(".m4a")[0] + ".jpg");
+  } else {
+    document
+      .querySelector(".song-cover-div img")
+      .setAttribute("src", "./songs/chaand/cover.jpg");
+  }
 
   let songUrl = currentAudio.src;
 

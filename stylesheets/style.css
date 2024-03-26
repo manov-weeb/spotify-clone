@@ -507,7 +507,7 @@ body {
 @media (max-width: 980px) {
   .left {
     position: absolute;
-    transition: all 0.88s ease-in-out;
+    transition: all 0.5s ease-in-out;
     z-index: 5;
     left: -100%;
     width: 380px;
@@ -608,6 +608,10 @@ body {
     z-index: 10;
   }
 
+  .play{
+    display: none;
+  }
+
   .song-details-div {
     justify-content: center;
     align-items: start;
@@ -638,7 +642,7 @@ body {
     display: none;
   }
 
-  .change-btn {
+  #previous{
     display: none;
   }
 
